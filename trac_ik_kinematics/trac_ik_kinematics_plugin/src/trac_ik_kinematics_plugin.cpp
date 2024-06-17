@@ -384,7 +384,7 @@ namespace trac_ik_kinematics_plugin
         solution[z] = out(z);
 
       // check for collisions if a callback is provided
-      if (!solution_callback.empty())
+      if (solution_callback)
       {
         solution_callback(ik_pose, solution, error_code);
         if (error_code.val == moveit_msgs::msg::MoveItErrorCodes::SUCCESS)
@@ -394,7 +394,7 @@ namespace trac_ik_kinematics_plugin
         }
         else
         {
-          RCLCPP_DEBUG(LOGGER, "Solution has error code %i", error_code);
+          RCLCPP_DEBUG_STREAM(LOGGER, "Solution has error code " << error_code.val);
           return false;
         }
       }
